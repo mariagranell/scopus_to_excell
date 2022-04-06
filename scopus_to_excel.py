@@ -1,44 +1,41 @@
-# This is a code to transform a txt file from a scopus search into a legible csv file.
+#This is a code to transform a txt file from a scopus search into a legible csv file.
 
-# this is to import usual charachters or basics
+#this is to be able to use regex expressions
 import re
-import os
-#os.getcwd() #code for check in witch dir I was
-#os.chdir('C:/Users/mariagranell/Desktop') #code to change dir
 
+#this is my first time using regex! website: https://regex101.com/
+#this is the expression that i used: (?<=\")(,)(?=\")|(?<=\")(,)(?=\d)|(?<=\d)(,)(?=\")
+#(?<=\")(,)(?=\") this matches characters between a " and a " that is are ,
+#(?<=\")(,)(?=\d) this matches characters between a " and a number that is are ,
+#(?<=\d)(,)(?=\") this matches characters between a number and a " that is are ,
+#to put them all together you can to use |
 
 # open file to read
 f = open('example_csv.csv', 'r')
 data = f.readlines() #read the lines
 
-# to put the data in a list
+#to put the data in a list and apply the regex command
 dat = []
-counter = 0
+COUNTER = 0
 for line in data:
+    #separates the lines
     line = line.strip()
+    #the next line replaces the matches in the regex code for ; for each line
+    line = re.sub('(?<=\")(,)(?=\")|(?<=\")(,)(?=\d)|(?<=\d)(,)(?=\")', ';', line)
+    #puts the lines together
     dat.append(line)
-    counter += 1
-    if counter > len(data):
+    COUNTER += 1
+    if COUNTER > len(data):
         break
 
-
-# change the frist rows , for ;
+#change the frist rows , for ;
 dat[0] = dat[0].replace(',',';')
 
-play = '"Kohlhoff, V.","Oxytocin, review",2022,"10.1016","https";"This , pro-© 2022 Elsevier Ltd","Adolescent; Behavior"'
-new_character = ';'
-counter = 0
-number_of_comillas = 0
-n_comas = 0
-for character in play:
-    if character == '"':
-        number_of_comillas += 1
-    if number_of_comillas = 2:
-        n_comas += 1
-        number_of_comillas = 0
-    if character == ',':
-        play = play[:counter] + new_character + play[counter+1:]
-    counter += 1
+#funtion for exporting a list into a csv file, each item into a row
+def write_to_csv(example_file):
+    with open('output_file.csv', 'w') as csvfile:
+        for domain in example_file:
+            csvfile.write(domain + '\n')
 
-print(play)
-
+#export dat into a csv file
+write_to_csv(dat)

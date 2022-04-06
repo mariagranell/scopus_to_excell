@@ -8,4 +8,4 @@ The desired output can be find in ```example_csv_manualdofiy.csv``` in where I m
 
 In the ```scopus_to_csv.py``` you can find a python code I created to automatically do that change so it looks flawless in excel.
 
-This is the first time I use regex to do this kind of selection! I found it extremely difficult but satifiying!
+This is the first time I use regex to do this kind of selection! I found it extremely difficult but satifiying! The output file that can be readed in excell is called ```output_file.csv```

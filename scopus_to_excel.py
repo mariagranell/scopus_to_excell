@@ -4,10 +4,11 @@
 import re
 
 #this is my first time using regex! website: https://regex101.com/
-#this is the expression that i used: (?<=\")(,)(?=\")|(?<=\")(,)(?=\d)|(?<=\d)(,)(?=\")
+#this is the expression that i used: (?<=\")(,)(?=\")|(?<=\")(,)(?=\d)|(?<=\d)(,)(?=\")|,,
 #(?<=\")(,)(?=\") this matches characters between a " and a " that is are ,
 #(?<=\")(,)(?=\d) this matches characters between a " and a number that is are ,
 #(?<=\d)(,)(?=\") this matches characters between a number and a " that is are ,
+#,, select when there´s two , together
 #to put them all together you can to use |
 
 # open file to read
@@ -21,7 +22,7 @@ for line in data:
     #separates the lines
     line = line.strip()
     #the next line replaces the matches in the regex code for ; for each line
-    line = re.sub('(?<=\")(,)(?=\")|(?<=\")(,)(?=\d)|(?<=\d)(,)(?=\")', ';', line)
+    line = re.sub('(?<=\")(,)(?=\")|(?<=\")(,)(?=\d)|(?<=\d)(,)(?=\")|,,', ';', line)
     #puts the lines together
     dat.append(line)
     COUNTER += 1
